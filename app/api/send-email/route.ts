@@ -11,10 +11,10 @@ export async function POST(request: Request) {
       name,
       email,
       phone,
-      service,
-      message,
+      destination,
+      studyLevel,
       date,
-      time,
+      message,
     } = body;
 
     if (!name || !email) {
@@ -30,25 +30,25 @@ export async function POST(request: Request) {
     const emailContent = `
 New Consultancy Request
 
-Name: ${name}
+Full Name: ${name}
 Email: ${email}
-Phone: ${phone || "Not provided"}
-Service: ${service || "Not provided"}
-Preferred Date: ${date || "Not provided"}
-Preferred Time: ${time || "Not provided"}
+Phone Number: ${phone || "Not provided"}
+Destination: ${destination || "Not provided"}
+Study Level: ${studyLevel || "Not provided"}
+Preferred Consultation Date: ${date || "Not provided"}
 
 Message:
 ${message || "No message provided"}
 `;
 
-   
-const { data, error } = await resend.emails.send({
-  from: "Consultancy Website <onboarding@resend.dev>",
-  to: process.env.RESEND_TO_EMAIL!,
-  subject: `New Consultancy Request from ${name}`,
-  text: emailContent,
-  replyTo: email,
-});
+    const { data, error } = await resend.emails.send({
+      from: "Consultancy Website <onboarding@resend.dev>",
+      to: process.env.RESEND_TO_EMAIL!,
+      subject: `New Consultancy Request from ${name}`,
+      text: emailContent,
+      replyTo: email,
+    });
+
     if (error) {
       console.error("Resend error:", error);
 
