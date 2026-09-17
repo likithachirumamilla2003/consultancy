@@ -7,15 +7,15 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    const {
-      name,
-      email,
-      phone,
-      destination,
-      studyLevel,
-      date,
-      message,
-    } = body;
+   const {
+  name,
+  email,
+  phone,
+  destination,
+  studyLevel,
+  preferredDate,
+  message,
+} = body;
 
     if (!name || !email) {
       return NextResponse.json(
@@ -35,7 +35,7 @@ Email: ${email}
 Phone Number: ${phone || "Not provided"}
 Destination: ${destination || "Not provided"}
 Study Level: ${studyLevel || "Not provided"}
-Preferred Consultation Date: ${date || "Not provided"}
+Preferred Consultation Date: ${preferredDate || "Not provided"}
 
 Message:
 ${message || "No message provided"}
